@@ -6,17 +6,11 @@ pipeline {
     }
 
     parameters {
-        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH_TAG', sortMode: 'DESCENDING_SMART'
+        gitParameter branchFilter: '.*', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH_TAG', sortMode: 'DESCENDING_SMART'
         choice(name: 'ENVIRONMENT', choices: ['staging', 'production'], description: 'Environment to run')
     }
 
     stages {
-//         stage('Checkout') {
-//             steps {
-//                 git branch: "${params.BRANCH}", url: 'git@github.com:SEU_USUARIO/jenkins-demo.git', credentialsId: 'github-ssh-key'
-//             }
-//         }
-
         stage('Install dependencies and test') {
             agent {
                 docker {
